@@ -95,15 +95,6 @@ class Stepping_Pieces < Pieces
 
     DIC= {:king=>KING_MOTION,:knight=>KNIGHT_MOTION}
 
-  # def move(pos)
-  #   if self.rank == :knight
-  #     return "ERROR" if !knight_moves.include?(pos)
-  #   else
-  #     return "ERROR" if !king_moves.include?(pos)
-  #   end
-  #   super(pos)
-  # end
-
   def moves
       pos=[]
       DIC[self.rank].each do |(row, col)|

@@ -11,7 +11,6 @@ class Board
   def initialize
     @board = Array.new(8) {Array.new(8)}
     build_board
-    # create_board_hash
     @turn = :white
     @move_tracker = { :white => Array.new(8){"        "}, :black => Array.new(8){"        "} }
   end
@@ -33,20 +32,6 @@ class Board
     end
 
   end
-
-  # def create_board_hash
-  #   @dictionary = Hash.new
-  #   columns = %w(a b c d e f g h)
-  #
-  #   8.times do |row_idx|
-  #     8.times do |col_idx|
-  #       dictionary[columns[col_idx] + (8 - row_idx).to_s] = [row_idx, col_idx]
-  #     end
-  #   end
-  #
-  #   nil
-  # end
-
 
   def display
     count = 8
@@ -78,15 +63,15 @@ class Board
 
   def move(start_pos, end_pos)
     piece = @board[start_pos.first][start_pos.last]
-    return "No Piece" if piece.nil?
-    return "Not 'yo Piece" if piece.color != @turn
-    return "Wrong Move" unless piece.moves.include?(end_pos)
+    return "No Piece at this Location" if piece.nil?
+    return "Please Choose One of Your Pieces" if piece.color != @turn
+    return "Invalid Move" unless piece.moves.include?(end_pos)
 
     test_board = self.board_dup
 
     test_board.board[start_pos.first][start_pos.last].move(end_pos)
     test_board.toggle_turn
-    return "Cannot move self to check" if test_board.check?(test_board.turn)
+    return "Cannot Put Self Into Check" if test_board.check?(test_board.turn)
 
     piece.move(end_pos)
     toggle_turn
@@ -103,42 +88,8 @@ class Board
         return false
       end
     end
-
     true
   end
-
-  # def play
-  #   system "clear"
-  #   display
-  #
-  #   until game_over?(turn)
-  #     puts "#{@turn} Please move (start,finish)"
-  #     user_choice = gets.chomp.split(",")
-  #     choice = [@dictionary[user_choice.first], @dictionary[user_choice.last]]
-  #     moved_message = move(*choice)
-  #     system "clear"
-  #
-  #     if moved_message == true
-  #       @move_tracker[@turn].unshift("#{user_choice}")
-  #       display
-  #     else
-  #       display
-  #       puts moved_message
-  #     end
-  #
-  #
-  #     @turn == :white ? previous_turn = :black : previous_turn = :white
-  #     puts "CHECK!" if check?(previous_turn)
-  #   end
-  #
-  #
-  #   toggle_turn
-  #
-  #   return "#{@turn} WINS!" if check?(turn)
-  #   "Draw"
-  # end
-
-
 
   def check?(color, more = false)
     possible_moves = []
@@ -165,8 +116,3 @@ class Board
   end
 
 end
-
-# if __FILE__ == $PROGRAM_NAME
-#   b = Board.new; nil
-#   b.play
-# end

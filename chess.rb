@@ -21,17 +21,20 @@ class Chess
     nil
   end
 
-
-
   def play
     system "clear"
     @board_object.display
 
     until @board_object.game_over?(@board_object.turn)
       puts "#{@board_object.turn} Please move (start,finish)"
-      user_choice = gets.chomp.split(",")
+      begin
+      user_choice = gets.chomp.split(",").map(&:lstrip)
       choice = [@dictionary[user_choice.first], @dictionary[user_choice.last]]
       moved_message = @board_object.move(*choice)
+
+    rescue StandardError
+      moved_message = "Invalid Input, Please use comma separated moves (b2,b3)"
+    end
       system "clear"
 
       if moved_message == true
@@ -42,7 +45,6 @@ class Chess
         puts moved_message
       end
 
-
       @turn == :white ? previous_turn = :black : previous_turn = :white
       puts "CHECK!" if @board_object.check?(previous_turn)
     end
@@ -50,16 +52,13 @@ class Chess
 
     @board_object.toggle_turn
 
-    return "#{@board_object.turn} WINS!" if @board_object.check?(@board_object.turn)
+    return "#{@board_object.turn.upcase} WINS!" if @board_object.check?(@board_object.turn)
     "Draw"
   end
 
-
 end
-
-
 
 if __FILE__ == $PROGRAM_NAME
   game = Chess.new; nil
-  game.play
+  puts game.play
 end
