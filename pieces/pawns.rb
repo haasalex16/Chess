@@ -25,13 +25,13 @@ class Pawns < Pieces
   def moves
     @pawn_motion = pawn_motion.take(3) if @moved
     pos = []
-    @pawn_motion.each do |(row,col)|
+    @pawn_motion.each do |(row, col)|
       pos << [position.first + row, position.last + col]
     end
 
     all_moves = remove_invalid(pos)
     valid_moves(all_moves)
-end
+  end
 
   def valid_moves(all_moves)
     valid_moves = []
@@ -40,7 +40,7 @@ end
       if col == self.position.last
         f_moves << [row,col]
       else
-        if !@board[row][col].nil? && @board[row][col].color != self.color
+        if @board[row][col] && @board[row][col].color != self.color
           valid_moves << [row,col]
         end
       end

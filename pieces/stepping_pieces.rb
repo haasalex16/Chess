@@ -5,7 +5,8 @@ class Stepping_Pieces < Pieces
     KNIGHT_MOTION= [ [1,2],[2,1],[1,-2],[-2,1],[-1,2],[2,-1],[-1,-2],[-2,-1]]
     KING_MOTION=[[0,1],[0,-1],[1,0],[1,1],[1,-1],[-1,-1],[-1,0],[-1,1]]
 
-    DIC= {:king=>KING_MOTION,:knight=>KNIGHT_MOTION}
+    DIC= {king:   KING_MOTION,
+          knight: KNIGHT_MOTION}
 
   def moves
       pos=[]

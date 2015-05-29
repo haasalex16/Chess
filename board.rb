@@ -17,7 +17,8 @@ class Board
     @board = Array.new(8) {Array.new(8)}
     build_board
     @turn = :white
-    @move_tracker = { :white => Array.new(8){"        "}, :black => Array.new(8){"        "} }
+    @move_tracker = { white: Array.new(8){"        "},
+                      black: Array.new(8){"        "} }
   end
 
   def toggle_turn
@@ -62,9 +63,9 @@ class Board
       end
       color_count += 1
       drawn << " #{count.to_s}          "
-      drawn <<  @move_tracker[:black][8 - count].to_s[1..-2].to_s.gsub("\"","")
+      drawn <<  @move_tracker[:black][8 - count].to_s[1..-2].gsub("\"","").upcase
       drawn << "  |  "
-      drawn <<  @move_tracker[:white][8 - count].to_s[1..-2].to_s.gsub("\"","")
+      drawn <<  @move_tracker[:white][8 - count].to_s[1..-2].gsub("\"","").upcase
       count -= 1
       puts drawn
     end
@@ -74,7 +75,6 @@ class Board
 
   def board_dup
     YAML.load(self.to_yaml)
-
   end
 
   def move(start_pos, end_pos)
