@@ -7,3 +7,4 @@ Chess is 2-player, logic driven game built in Ruby with:
 * Class inheritance from a generic piece class into more specific sliding/stepping/pawn piece classes
 * Error checking for legal move based on chosen piece
 * Error checking to ensure player does not put oneself into 'check'
+* Utilizes ['colorize'](https://github.com/fazibear/colorize) Gem to create checkered board

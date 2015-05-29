@@ -1,5 +1,9 @@
 require './pieces'
+require './sliding_pieces'
+require './stepping_pieces'
+require './pawns'
 require 'yaml'
+require 'colorize'
 
 class Board
 
@@ -36,18 +40,29 @@ class Board
   def display
     count = 8
     puts " A  B  C  D  E  F  G  H              WHITE  :  BLACK"
+    color_count = 1
     @board.each do |row|
       drawn=''
       row.each do | cell |
         if cell.nil?
-          drawn << " _ "
+          if color_count % 2 == 0
+            drawn << "   ".colorize(:background => :light_black)
+          else
+            drawn << "   "
+          end
         else
-          drawn << " " + cell.render + " "
+          string =  " #{cell.render} "
+          if color_count % 2 == 0
+            string = string.colorize(:background => :light_black)
+          end
+          drawn << string
         end
+        color_count += 1
       end
-      drawn << count.to_s + "          "
+      color_count += 1
+      drawn << " #{count.to_s}          "
       drawn <<  @move_tracker[:black][8 - count].to_s[1..-2].to_s.gsub("\"","")
-      drawn << "   |   "
+      drawn << "  |  "
       drawn <<  @move_tracker[:white][8 - count].to_s[1..-2].to_s.gsub("\"","")
       count -= 1
       puts drawn
