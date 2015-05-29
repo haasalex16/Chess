@@ -1,4 +1,4 @@
-require './pieces'
+require_relative 'pieces'
 
 class Sliding_Pieces < Pieces
 

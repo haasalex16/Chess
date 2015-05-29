@@ -1,7 +1,8 @@
-require './pieces'
-require './sliding_pieces'
-require './stepping_pieces'
-require './pawns'
+
+require_relative './pieces/sliding_pieces.rb'
+
+require_relative  './pieces/stepping_pieces'
+require_relative  './pieces/pawns'
 require 'yaml'
 require 'colorize'
 
