@@ -1,6 +1,5 @@
 
 require_relative './pieces/sliding_pieces.rb'
-
 require_relative  './pieces/stepping_pieces'
 require_relative  './pieces/pawns'
 require 'yaml'
@@ -104,6 +103,7 @@ class Board
         return false
       end
     end
+
     true
   end
 
